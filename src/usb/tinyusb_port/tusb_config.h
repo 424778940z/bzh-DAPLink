@@ -16,14 +16,18 @@
 
 #define CFG_TUD_ENDPOINT0_SIZE 64
 
-#define CFG_TUD_CDC            0
+#if defined(DAP_CDC)
+  #define CFG_TUD_CDC 1   // CDC ACM bridged to UART3 (gated on DAP_CDC)
+#else
+  #define CFG_TUD_CDC 0
+#endif
 #if defined(DAP_FW_V1)
-  #define CFG_TUD_HID 1   // enable HID when v1 firmware is built (can coexist with v2)
+  #define CFG_TUD_HID 1   // HID interface (DAP v1)
 #else
   #define CFG_TUD_HID 0
 #endif
 #if defined(DAP_FW_V2)
-  #define CFG_TUD_VENDOR          1
+  #define CFG_TUD_VENDOR          1   // Vendor / WinUSB interface (DAP v2)
 #else
   #define CFG_TUD_VENDOR          0
 #endif
