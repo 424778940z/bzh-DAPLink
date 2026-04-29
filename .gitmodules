@@ -1,0 +1,6 @@
+[submodule "modules/cmsis_dap"]
+	path = modules/cmsis_dap
+	url = https://github.com/ARM-software/CMSIS-DAP.git
+[submodule "modules/tinyusb"]
+	path = modules/tinyusb
+	url = https://github.com/hathach/tinyusb.git
