@@ -1,0 +1,42 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/.build/${presetName}",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "wch-toolchain-debug",
+            "displayName": "WCH RISC-V Toolchain Debug",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "wch-toolchain-release",
+            "displayName": "WCH RISC-V Toolchain Release",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "wch-toolchain-debug",
+            "configurePreset": "wch-toolchain-debug"
+        },
+        {
+            "name": "wch-toolchain-release",
+            "configurePreset": "wch-toolchain-release"
+        }
+    ]
+}
