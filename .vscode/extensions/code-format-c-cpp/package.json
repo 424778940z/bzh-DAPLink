@@ -1,0 +1,23 @@
+{
+    "name": "code-format-c-cpp",
+    "displayName": "Code Format C/C++",
+    "publisher": "local",
+    "version": "1.0.0",
+    "engines": {
+        "vscode": "^1.89.0"
+    },
+    "categories": [
+        "Formatters"
+    ],
+    "activationEvents": [
+        "onLanguage:c",
+        "onLanguage:cpp"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "languages": [
+            { "id": "c" },
+            { "id": "cpp" }
+        ]
+    }
+}

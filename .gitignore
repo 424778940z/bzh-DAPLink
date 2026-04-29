@@ -1,0 +1,16 @@
+# build artifacts
+/_ref
+/build
+/.build
+/.build*
+/wch_tools
+/artifacts
+
+# ai
+CLAUDE.local.md
+CLAUDE_*
+
+# python
+/.venv
+__pycache__
+*.pyc

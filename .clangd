@@ -1,0 +1,13 @@
+CompileFlags:
+  CompilationDatabase: .build/
+  Remove:
+    - -fstack-usage
+    - --specs=*
+    - -msmall-data-limit=*
+    - -msave-restore
+    - -mcmodel=*
+    - -fsingle-precision-constant
+    - -march=*
+  Add:
+    - --target=riscv32-unknown-elf
+    - -march=rv32imac

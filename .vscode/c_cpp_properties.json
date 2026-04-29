@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "name": "riscv-wch-elf-gcc",
+//             // "includePath": [
+//             // ],
+            "defines": [
+            ],
+            "compilerPath": "${workspaceFolder}/wch_tools/toolchain/bin/riscv-wch-elf-gcc",
+//             "compilerArgs": [
+//                 "-nostdlib",
+//                 "-mthumb",
+//                 "-mcpu=cortex-m7",
+//                 "-mfloat-abi=hard",
+//                 "-mfpu=fpv5-d16",
+//                 "-mtune=cortex-m7",
+//                 "--specs=nano.specs"
+//             ],
+//             "cStandard": "c17",
+//             "cppStandard": "c++14",
+            "intelliSenseMode": "gcc-arm", // there is no gcc-riscv mode yet
+            "configurationProvider": "ms-vscode.cmake-tools"
+//             // "configurationProvider": "ms-vscode.cpptools",
+//             // "configurationProvider": "ms-vscode.makefile-tools",
+//             // "browse": {
+//             //     "path": [
+//             //         "/usr/lib/gcc/arm-none-eabi/**/",
+//             //         "${workspaceFolder}/"
+//             //     ],
+//             //     "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
+//             // }
+        }
+    ],
+    "version": 4
+}

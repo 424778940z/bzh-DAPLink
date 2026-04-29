@@ -1,0 +1,6 @@
+[
+    {
+        "name": "WCH RISC-V (FetchContent)",
+        "toolchainFile": "${workspaceFolder}/cmake/toolchain.cmake"
+    }
+]
