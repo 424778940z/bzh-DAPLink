@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Dbg Launch",
+            //common
+            "type": "cortex-debug",
+            // "name": "${command:cmake.launchTargetPath}",
+            "executable": "${command:cmake.launchTargetPath}",
+            "cwd": "${workspaceFolder}",
+            "request": "launch",
+            // mcu
+            // server openocd
+            "servertype": "openocd",
+            "configFiles": ["${workspaceFolder}/wch_tools/openocd/bin/wch-riscv.cfg"],
+            "interface": "swd",
+            // debug target options
+            "runToEntryPoint": "main",
+            // rttConfig disabled — the bundled WCH OpenOCD strips its `rtt`
+            // Tcl command set down to just `rtt server start/stop`. There is
+            // no `rtt setup` / `rtt start`, so Cortex-Debug's rttConfig pipeline
+            // silently fails before the server is reachable. Use the bundled
+            // utils/rtt_monitor.py in a side terminal instead — it polls the
+            // control block (fixed at 0x20000000 by the .rtt_cb section in
+            // hal/ld/link.ld) over OpenOCD's tcl_port directly. Keep this
+            // block as a reference for if/when we switch to upstream OpenOCD.
+            // "rttConfig": {
+            //     "enabled": true,
+            //     "address": "0x20000000",
+            //     "decoders": [{ "label": "RTT 0", "port": 0, "type": "console" }]
+            // },
+            // "rtos": "FreeRTOS",
+            // "liveWatch": {
+            //     "enabled": true,
+            //     "samplesPerSecond": 1
+            // }
+        },
+    ]
+}

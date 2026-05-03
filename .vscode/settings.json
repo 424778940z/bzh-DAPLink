@@ -1,0 +1,155 @@
+{
+    "C_Cpp.autoAddFileAssociations": false,
+    "C_Cpp.clang_format_fallbackStyle": "none",
+    "C_Cpp.clang_format_sortIncludes": false,
+    "C_Cpp.clang_format_style": "file:${workspaceFolder}/utils/code_format/c_cpp/.clang-format",
+    "C_Cpp.copilotHover": "disabled",
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "[c]": {
+        "editor.defaultFormatter": "local.code-format-c-cpp"
+        // "editor.formatOnPaste": true,
+        // "editor.formatOnSave": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "local.code-format-c-cpp"
+        // "editor.formatOnPaste": true,
+        // "editor.formatOnSave": true
+    },
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true
+    },
+    "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--header-insertion=never",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=false",
+        "--query-driver=*riscv-wch-elf-*"
+    ],
+    "clangd.detectExtensionConflicts": true,
+    "clangd.onConfigChanged": "restart",
+    "cmake.buildBeforeRun": false,
+    "cmake.buildDirectory": "${workspaceFolder}/.build",
+    "cmake.configureArgs": [
+        // "--debug-output",
+        // "--trace",
+        // "--log-level=VERBOSE",
+    ],
+    // "cmake.loggingLevel": "debug",
+    "cmake.configureOnOpen": false,
+    "cmake.copyCompileCommands": "${workspaceFolder}/.build/compile_commands.json",
+    "cmake.debugConfig": {
+        "configFiles": [
+            "${workspaceFolder}/wch_tools/openocd/bin/wch-riscv.cfg"
+        ],
+        "cwd": "${workspaceFolder}",
+        // "name": "${command:cmake.launchTargetPath}",
+        "executable": "${command:cmake.launchTargetPath}",
+        "interface": "swd",
+        "name": "Dbg Launch",
+        "request": "launch",
+        // debug target options
+        "runToEntryPoint": "main",
+        // rttConfig disabled — the bundled WCH OpenOCD strips its `rtt`
+        // Tcl command set down to just `rtt server start/stop`. There is
+        // no `rtt setup` / `rtt start`, so Cortex-Debug's rttConfig pipeline
+        // silently fails before the server is reachable. Use the bundled
+        // utils/rtt_monitor.py in a side terminal instead — it polls the
+        // control block (fixed at 0x20000000 by the .rtt_cb section in
+        // hal/ld/link.ld) over OpenOCD's tcl_port directly. Keep this
+        // block as a reference for if/when we switch to upstream OpenOCD.
+        // "rttConfig": {
+        //     "enabled": true,
+        //     "address": "0x20000000",
+        //     "decoders": [{ "label": "RTT 0", "port": 0, "type": "console" }]
+        // },
+        // "rtos": "FreeRTOS",
+        // "liveWatch": {
+        //     "enabled": true,
+        //     "samplesPerSecond": 1
+        // }
+        // mcu
+        // server openocd
+        "servertype": "openocd",
+        //common
+        "type": "cortex-debug"
+    },
+    "cmake.deleteBuildDirOnCleanConfigure": true,
+    "cmake.generator": "Ninja",
+    "cmake.ignoreCMakeListsMissing": true,
+    "cmake.ignoreKitEnv": true,
+    "cmake.installPrefix": "${workspaceFolder}/.install",
+    "cmake.launchBehavior": "breakAndReuseTerminal",
+    "cmake.options.advanced": {
+        "buildPreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "cpack": {
+            "statusBarVisibility": "hidden"
+        },
+        "ctest": {
+            "statusBarVisibility": "hidden"
+        },
+        "launch": {
+            "statusBarVisibility": "hidden"
+        },
+        "packagePreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "testPreset": {
+            "statusBarVisibility": "hidden"
+        },
+        "workflow": {
+            "statusBarVisibility": "hidden"
+        },
+        "workflowPreset": {
+            "statusBarVisibility": "hidden"
+        }
+    },
+    "cmake.options.statusBarVisibility": "visible",
+    "cmake.parallelJobs": 12,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "cortex-debug.armToolchainPath.linux": "${workspaceFolder}/wch_tools/toolchain/bin/riscv-wch-elf-gcc",
+    "cortex-debug.armToolchainPath.windows": "${workspaceFolder}\\wch_tools\\toolchain\\bin\\riscv-wch-elf-gcc.exe",
+    "cortex-debug.gdbPath.linux": "${workspaceFolder}/wch_tools/toolchain/bin/riscv-wch-elf-gdb",
+    "cortex-debug.gdbPath.windows": "${workspaceFolder}\\wch_tools\\toolchain\\bin\\riscv-wch-elf-gdb.exe",
+    "cortex-debug.objdumpPath.linux": "${workspaceFolder}/wch_tools/toolchain/bin/riscv-wch-elf-objdump",
+    "cortex-debug.objdumpPath.windows": "${workspaceFolder}\\wch_tools\\toolchain\\bin\\riscv-wch-elf-objdump.exe",
+    "cortex-debug.openocdPath.linux": "${workspaceFolder}/wch_tools/openocd/bin/openocd",
+    "cortex-debug.openocdPath.windows": "${workspaceFolder}\\wch_tools\\openocd\\bin\\openocd.exe",
+    "cortex-debug.variableUseNaturalFormat": true,
+    "explorer.autoRevealExclude": {
+        "**/modules/**": true
+    },
+    "explorer.incrementalNaming": "smart",
+    "files.associations": {
+        "*.c": "c",
+        "*.h": "c"
+    },
+    "files.exclude": {
+        //
+    },
+    "git.alwaysSignOff": true,
+    "git.enableCommitSigning": true,
+    "git.mergeEditor": true,
+    "git.openRepositoryInParentFolders": "never",
+    "output.smartScroll.enabled": false,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "NOTE",
+        "[ ]",
+        "[x]"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)"
+}
