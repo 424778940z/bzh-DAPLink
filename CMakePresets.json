@@ -1,0 +1,68 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/.build/${presetName}",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "system-toolchain-debug",
+            "displayName": "System Toolchain Debug",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain_system.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "system-toolchain-release",
+            "displayName": "System Toolchain Release",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain_system.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "arm-toolchain-debug",
+            "displayName": "ARM Toolchain Debug",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain_arm.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "arm-toolchain-release",
+            "displayName": "ARM Toolchain Release",
+            "inherits": "base",
+            "toolchainFile": "${sourceDir}/cmake/toolchain_arm.cmake",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "system-toolchain-debug",
+            "configurePreset": "system-toolchain-debug"
+        },
+        {
+            "name": "system-toolchain-release",
+            "configurePreset": "system-toolchain-release"
+        },
+        {
+            "name": "arm-toolchain-debug",
+            "configurePreset": "arm-toolchain-debug"
+        },
+        {
+            "name": "arm-toolchain-release",
+            "configurePreset": "arm-toolchain-release"
+        }
+    ]
+}
