@@ -1,0 +1,89 @@
+name: Build firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch, tag, or commit SHA to build (must contain ./build.sh)'
+        required: true
+        type: string
+        default: fw-hs-wch-wchlinkE
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (with submodules + LFS)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          submodules: recursive
+          lfs: true
+
+      # Some branches FetchContent-clone other (orphan) branches of this repo
+      # over HTTPS; while the repo is private, those clones need auth -- inject
+      # GITHUB_TOKEN via insteadOf. No-op for branches that don't fetch.
+      - name: Authenticate git for FetchContent
+        run: |
+          git config --global \
+            url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf \
+            "https://github.com/"
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake ninja-build git-lfs
+
+      - name: Build (release)
+        run: bash ./build.sh release
+
+      - name: Stage firmware bundle
+        id: fw
+        env:
+          # Pulled into env to avoid github-expression interpolation directly
+          # in the shell body (command-injection hardening).
+          INPUT_REF: ${{ inputs.ref }}
+        run: |
+          set -euo pipefail
+          elf=$(find . -path './.build*' -name 'BZH_DAPLink*-*.elf' -type f | head -1)
+          if [ -z "$elf" ]; then
+            echo "No firmware ELF produced under any .build* dir" >&2
+            find . -path './.build*' -type f | head -50
+            exit 1
+          fi
+          dir=$(dirname "$elf")
+
+          # Artifact zip name combines the chosen ref with the resolved short
+          # SHA, so each build is unambiguous (branch/tag picked + commit).
+          ref_safe=$(printf '%s' "$INPUT_REF" | tr -c 'a-zA-Z0-9._-' '_')
+          sha=$(git rev-parse --short HEAD)
+          name="${ref_safe}-${sha}"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+
+          # Zip layout:
+          #   <elf-basename>.elf, <elf-basename>.hex     -- top level
+          #   artifacts/<elf-basename>.bin/.lst/.map/..  -- supplementary
+          mkdir -p stage/artifacts
+          cp "$dir"/BZH_DAPLink*-*.elf stage/
+          cp "$dir"/BZH_DAPLink*-*.hex stage/
+          for f in "$dir"/BZH_DAPLink*-*; do
+            case "$f" in
+              *.elf|*.hex) ;;
+              *)           cp "$f" stage/artifacts/ ;;
+            esac
+          done
+
+          echo "--- Staged contents ---"
+          find stage -type f | sort
+          file stage/*.elf stage/*.hex
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.fw.outputs.name }}
+          path: stage/
+          if-no-files-found: error
