@@ -1,0 +1,7 @@
+/\.build
+/\.venv
+/modules
+/hal
+/reference
+/wch_tools
+/src/usb/tinyusb_port/wch

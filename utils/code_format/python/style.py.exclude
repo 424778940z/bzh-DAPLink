@@ -1,0 +1,6 @@
+/\.build
+/\.venv
+/modules
+/hal
+/reference
+/wch_tools

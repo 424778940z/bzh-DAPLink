@@ -1,0 +1,32 @@
+target-version = "py313"
+line-length = 150
+indent-width = 4
+
+exclude = [
+    ".build/",
+    ".venv/",
+    "modules/",
+    "hal/",
+    "reference/",
+    "wch_tools/",
+]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+skip-magic-trailing-comma = true
+
+[lint.isort]
+split-on-trailing-comma = false
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+]
